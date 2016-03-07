@@ -26,7 +26,12 @@ public class MainActivity extends FragmentActivity implements TopicsFragment.OnH
 
     @Override
     public void onArticleSelected(int position) {
+        DetailFragment detailFragment = (DetailFragment)
+                getSupportFragmentManager().findFragmentById(R.id.details);
 
+        if (detailFragment != null){
+            detailFragment.setContent(position);
+        }else {
             DetailFragment newFragment = new DetailFragment();
             Bundle args = new Bundle();
             //sets position to keyvalue ARG_position
@@ -37,5 +42,7 @@ public class MainActivity extends FragmentActivity implements TopicsFragment.OnH
             transaction.replace(android.R.id.content,newFragment);
             transaction.addToBackStack(null);
             transaction.commit();
+        }
+
     }
 }

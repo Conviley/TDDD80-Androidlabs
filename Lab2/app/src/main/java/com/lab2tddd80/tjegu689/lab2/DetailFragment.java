@@ -59,7 +59,7 @@ public class DetailFragment extends Fragment{
     public void setContent(int positon){
         switch (positon){
             case 0:
-                description.setText("Sveriges TESXT");
+                description.setText("Sveriges TEXTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
                 break;
             case 1:
                 description.setText("Finlands TEXT");
