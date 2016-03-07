@@ -48,7 +48,6 @@ public class DetailFragment extends Fragment{
     @Override
     public void onStart(){
         super.onStart();
-
         Bundle args = getArguments();
         if (args!= null){
             setContent(args.getInt(ARG_POSITION));

@@ -29,6 +29,7 @@ public class MainActivity extends FragmentActivity implements TopicsFragment.OnH
 
             DetailFragment newFragment = new DetailFragment();
             Bundle args = new Bundle();
+            //sets position to keyvalue ARG_position
             args.putInt(DetailFragment.ARG_POSITION, position);
             newFragment.setArguments(args);;
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
