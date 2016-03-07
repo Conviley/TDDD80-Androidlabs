@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 
-public class MainActivity extends FragmentActivity{
+public class MainActivity extends FragmentActivity implements TopicsFragment.OnHeadlineSelectedListener{
     public int article;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,5 +22,19 @@ public class MainActivity extends FragmentActivity{
             transaction.commit();
         }
 
+    }
+
+    @Override
+    public void onArticleSelected(int position) {
+
+            DetailFragment newFragment = new DetailFragment();
+            Bundle args = new Bundle();
+            args.putInt(DetailFragment.ARG_POSITION, position);
+            newFragment.setArguments(args);;
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+            transaction.replace(android.R.id.content,newFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
     }
 }
