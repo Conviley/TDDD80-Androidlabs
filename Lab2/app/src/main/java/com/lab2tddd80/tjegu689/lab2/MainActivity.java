@@ -5,22 +5,46 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
+import android.view.View;
 
 public class MainActivity extends FragmentActivity implements TopicsFragment.OnHeadlineSelectedListener{
-    public int article;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // Tutorial https://www.youtube.com/watch?v=cUq_TxEC3Zo
-        // Listfragment with tag
-        ListFragment listFragment = (ListFragment) getSupportFragmentManager().findFragmentByTag("listfragment");
-        if (listFragment == null){
-            listFragment = new TopicsFragment();
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.add(android.R.id.content,listFragment,"listfragment");
-            transaction.commit();
+        View plac = findViewById(R.id.placeholder);
+        if (findViewById(R.id.placeholder) != null) {
+
+            // However, if we're being restored from a previous state,
+            // then we don't need to do anything and should return or else
+            // we could end up with overlapping fragments.
+            if (savedInstanceState != null) {
+                return;
+            }
+
+            // Create an instance of ExampleFragment
+             TopicsFragment firstFragment = new TopicsFragment();
+
+            // In case this activity was started with special instructions from an Intent,
+            // pass the Intent's extras to the fragment as arguments
+            firstFragment.setArguments(getIntent().getExtras());
+
+            // Add the fragment to the 'fragment_container' FrameLayout
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.placeholder, firstFragment).commit();
+        }else{
+
         }
+
+        // Listfragment with tag
+//        ListFragment listFragment = (ListFragment) getSupportFragmentManager().findFragmentByTag("listfragment");
+//        if (listFragment == null){
+//            listFragment = new TopicsFragment();
+//            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//            transaction.add(android.R.id.content,listFragment,"listfragment");
+//            transaction.commit();
+//        }
 
     }
 
@@ -28,8 +52,11 @@ public class MainActivity extends FragmentActivity implements TopicsFragment.OnH
     public void onArticleSelected(int position) {
         DetailFragment detailFragment = (DetailFragment)
                 getSupportFragmentManager().findFragmentById(R.id.details);
+        System.out.println(getSupportFragmentManager().findFragmentById(R.id.details));
 
-        if (detailFragment != null){
+        if (findViewById(R.id.placeholder) == null){
+            System.out.println("detailFragment is null");
+            // if the detail fragment isn't null then we are in two pane layout
             detailFragment.setContent(position);
         }else {
             DetailFragment newFragment = new DetailFragment();
@@ -39,10 +66,10 @@ public class MainActivity extends FragmentActivity implements TopicsFragment.OnH
             newFragment.setArguments(args);;
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-            transaction.replace(android.R.id.content,newFragment);
+            transaction.replace(R.id.placeholder,newFragment);
             transaction.addToBackStack(null);
             transaction.commit();
         }
-
     }
+
 }

@@ -57,7 +57,7 @@ public class TopicsFragment extends ListFragment {
         // Bind adapter to the listFragent
         this.setListAdapter(adapter);
         // Retian listfragment instance across configuration changes
-        setRetainInstance(true);
+       // setRetainInstance(true);
 
         return view;
     }

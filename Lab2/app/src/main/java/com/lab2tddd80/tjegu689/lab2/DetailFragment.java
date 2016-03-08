@@ -21,14 +21,14 @@ import java.util.List;
  */
 public class DetailFragment extends Fragment{
     View detail_view;
-
+    TextView description;
     final static String ARG_POSITION = "position";
     int mCurrentPosition = -1;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstance){
         detail_view = inflater.inflate(R.layout.details,container,false);
-
+        description = (TextView) detail_view.findViewById(R.id.description);
         Button backButton = (Button) detail_view.findViewById(R.id.backButton);
 
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -39,9 +39,9 @@ public class DetailFragment extends Fragment{
             }
         });
 
-        if (savedInstance != null) {
-            mCurrentPosition = savedInstance.getInt(ARG_POSITION);
-        }
+//        if (savedInstance != null) {
+//            mCurrentPosition = savedInstance.getInt(ARG_POSITION);
+//        }
 
         return detail_view;
     }
@@ -58,8 +58,8 @@ public class DetailFragment extends Fragment{
     }
 
     public void setContent(int positon){
-        TextView description = (TextView) getActivity().findViewById(R.id.description);
-        if (description == null){
+
+        if (description == null) {
             System.out.println("description is null");
         }
         switch (positon){
@@ -79,13 +79,13 @@ public class DetailFragment extends Fragment{
         mCurrentPosition = positon;
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        // Save the current article selection in case we need to recreate the fragment
-        outState.putInt(ARG_POSITION, mCurrentPosition);
-    }
+//    @Override
+//    public void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//
+//        // Save the current article selection in case we need to recreate the fragment
+//        outState.putInt(ARG_POSITION, mCurrentPosition);
+//    }
 
 
 }
