@@ -1,14 +1,19 @@
 package com.lab2tddd80.tjegu689.lab2;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.ListView;
+
+import java.util.List;
 
 
 /**
@@ -53,12 +58,34 @@ public class TopicsFragment extends ListFragment {
         this.setListAdapter(adapter);
         // Retian listfragment instance across configuration changes
         setRetainInstance(true);
+
         return view;
+    }
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState){
+        super.onActivityCreated(savedInstanceState);
+        getListView().getLayoutParams().width = getWidestView(getActivity(),getListAdapter());
     }
     // Handling item click
     public void onListItemClick(ListView listView, View view, int position, long id){
         System.out.println("position: "+position );
         mCallback.onArticleSelected(position);
+    }
+
+
+    public static int getWidestView(Context context, Adapter adapter) {
+        int maxWidth = 0;
+        View view = null;
+        FrameLayout fakeParent = new FrameLayout(context);
+        for (int i=0, count=adapter.getCount(); i<count; i++) {
+            view = adapter.getView(i, view, fakeParent);
+            view.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+            int width = view.getMeasuredWidth();
+            if (width > maxWidth) {
+                maxWidth = width;
+            }
+        }
+        return maxWidth;
     }
 
 }

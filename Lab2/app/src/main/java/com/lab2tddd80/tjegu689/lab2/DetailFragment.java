@@ -1,13 +1,19 @@
 package com.lab2tddd80.tjegu689.lab2;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.List;
 
 
 /**
@@ -15,16 +21,15 @@ import android.widget.TextView;
  */
 public class DetailFragment extends Fragment{
     View detail_view;
-    TextView description;
+
     final static String ARG_POSITION = "position";
     int mCurrentPosition = -1;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstance){
         detail_view = inflater.inflate(R.layout.details,container,false);
-        description = (TextView) detail_view.findViewById(R.id.description);
-        Button backButton = (Button) detail_view.findViewById(R.id.backButton);
 
+        Button backButton = (Button) detail_view.findViewById(R.id.backButton);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,10 +46,6 @@ public class DetailFragment extends Fragment{
         return detail_view;
     }
 
-    public void updateDetails(int positon){
-        description.setText("asd");
-    }
-
     @Override
     public void onStart(){
         super.onStart();
@@ -57,6 +58,10 @@ public class DetailFragment extends Fragment{
     }
 
     public void setContent(int positon){
+        TextView description = (TextView) getActivity().findViewById(R.id.description);
+        if (description == null){
+            System.out.println("description is null");
+        }
         switch (positon){
             case 0:
                 description.setText("Sveriges TEXTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
@@ -71,6 +76,7 @@ public class DetailFragment extends Fragment{
                 description.setText("TVs TEXT");
                 break;
         }
+        mCurrentPosition = positon;
     }
 
     @Override
@@ -80,5 +86,6 @@ public class DetailFragment extends Fragment{
         // Save the current article selection in case we need to recreate the fragment
         outState.putInt(ARG_POSITION, mCurrentPosition);
     }
+
 
 }
