@@ -37,7 +37,7 @@ public class MainActivity extends FragmentActivity implements TopicsFragment.OnH
     }
 
     @Override
-    public void onArticleSelected(int position) {
+    public void onArticleSelected(Topic position) {
         DetailFragment detailFragment = (DetailFragment)
                 getSupportFragmentManager().findFragmentById(R.id.details);
         System.out.println(getSupportFragmentManager().findFragmentById(R.id.details));
@@ -50,7 +50,7 @@ public class MainActivity extends FragmentActivity implements TopicsFragment.OnH
             DetailFragment newFragment = new DetailFragment();
             Bundle args = new Bundle();
             //sets position to keyvalue ARG_position
-            args.putInt(DetailFragment.ARG_POSITION, position);
+            args.putSerializable(DetailFragment.ARG_POSITION,position);
             newFragment.setArguments(args);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 

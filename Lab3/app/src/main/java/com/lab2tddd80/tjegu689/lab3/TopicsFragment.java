@@ -32,10 +32,10 @@ import java.util.ArrayList;
 public class TopicsFragment extends ListFragment {
     OnHeadlineSelectedListener mCallback;
     final static int ARG_POSITION = 0;
-    public ArrayList<String> items = new ArrayList<>();
+    public ArrayList<Topic> items = new ArrayList<>();
     public ArrayAdapter adapter;
     public interface OnHeadlineSelectedListener{
-        void onArticleSelected(int position);
+        void onArticleSelected(Topic topic);
     }
 
     @Override
@@ -84,7 +84,7 @@ public class TopicsFragment extends ListFragment {
     // Handling item click
     public void onListItemClick(ListView listView, View view, int position, long id){
         System.out.println("position: " + position);
-        mCallback.onArticleSelected(position);
+        mCallback.onArticleSelected(items.get(position));
     }
 
 
@@ -102,7 +102,7 @@ public class TopicsFragment extends ListFragment {
         }
         return maxWidth;
     }
-    
+
     private void getTopics(){
         String url = "http://tddd80-afteach.rhcloud.com/api/groups";
         JsonObjectRequest jsonRequest = new JsonObjectRequest
@@ -114,7 +114,8 @@ public class TopicsFragment extends ListFragment {
                             JSONArray jsonArray = response.getJSONArray("grupper");
                             for (int i = 0; i <jsonArray.length(); i++) {
                                 String item = jsonArray.getString(i);
-                                items.add(item);
+                                Topic group = new Topic(item);
+                                items.add(group);
                                 getListView().setAdapter(adapter);
                                 getListView().getLayoutParams().width = getWidestView(getActivity(),getListAdapter());
                                 System.out.println(items);

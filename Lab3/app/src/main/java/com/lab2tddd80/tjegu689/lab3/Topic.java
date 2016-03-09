@@ -1,19 +1,18 @@
 package com.lab2tddd80.tjegu689.lab3;
 
+import java.io.Serializable;
+
 /**
  * Created by Tjelvar Guo on 2016-03-09.
  */
-public class Topic {
+public class Topic implements Serializable{
     private String topic;
     private String person;
     private String email;
     private String reply;
 
-    public Topic(String topic, String name, String email, String reply) {
+    public Topic(String topic) {
         this.topic = topic;
-        this.person = name;
-        this.email = email;
-        this.reply = reply;
     }
 
     public String getTopic() {
@@ -32,4 +31,24 @@ public class Topic {
         return reply;
     }
 
+    @Override
+    public String toString() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setReply(String reply) {
+        this.reply = reply;
+    }
+
+    public void setPerson(String person) {
+        this.person = person;
+    }
 }
