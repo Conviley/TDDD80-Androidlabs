@@ -44,14 +44,14 @@ public class MainActivity extends FragmentActivity implements TopicsFragment.OnH
 
         if (findViewById(R.id.placeholder) == null){
             System.out.println("detailFragment is null");
-            // if the detail fragment isn't null then we are in two pane layout
+            // if the placeholder is null then we are in two pane layout
             detailFragment.setContent(position);
         }else {
             DetailFragment newFragment = new DetailFragment();
             Bundle args = new Bundle();
             //sets position to keyvalue ARG_position
             args.putInt(DetailFragment.ARG_POSITION, position);
-            newFragment.setArguments(args);;
+            newFragment.setArguments(args);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
             transaction.replace(R.id.placeholder,newFragment);

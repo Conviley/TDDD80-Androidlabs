@@ -65,13 +65,6 @@ public class TopicsFragment extends ListFragment {
         ViewGroup view = (ViewGroup) inflater.inflate(R.layout.topic_view,container,false);
         // Create data source
 
-        String[] topics = {"Sverige", "Finland", "Tidning", "TV"};
-        ArrayList<String> list = new ArrayList<String>();
-//        list.add("Sverige]");
-//        list.add("Finland");
-//        list.add("Tidning");
-//        list.add("TV");
-
         // Create adapter
         adapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,
                 android.R.id.text1, items);
@@ -122,7 +115,6 @@ public class TopicsFragment extends ListFragment {
                             for (int i = 0; i <jsonArray.length(); i++) {
                                 String item = jsonArray.getString(i);
                                 items.add(item);
-                                adapter.notifyDataSetChanged();
                                 getListView().setAdapter(adapter);
                                 getListView().getLayoutParams().width = getWidestView(getActivity(),getListAdapter());
                                 System.out.println(items);
