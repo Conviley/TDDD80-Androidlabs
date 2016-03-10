@@ -32,6 +32,8 @@ public class MainActivity extends FragmentActivity implements TopicsFragment.OnH
             // Add the fragment to the 'fragment_container' FrameLayout
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.placeholder, firstFragment).commit();
+        }else {
+            System.out.println("nigga");
         }
 
     }

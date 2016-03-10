@@ -101,12 +101,15 @@ public class DetailFragment extends Fragment{
                                 JSONObject details = jsonArray.getJSONObject(i);
                                 String email = details.getString("epost");
                                 String name = details.getString("namn");
-                                //String reply = details.getString("svarade");
-                                members.append(email + " " + name + "\n");
+                                members.append(email + " " + name + " ");
                                 topic.setEmail(email);
                                 topic.setPerson(name);
-                                //topic.setReply(reply);
-                                System.out.println(details);
+                                if (details.length() == 3){
+                                    String reply = details.getString("svarade");
+                                    topic.setReply(reply);
+                                    members.append(reply);
+                                }
+                                members.append("\n");
                             }
                             description.setText(members.toString());
                             progressDialog.dismiss();

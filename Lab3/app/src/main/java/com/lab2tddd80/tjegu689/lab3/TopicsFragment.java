@@ -40,9 +40,9 @@ public class TopicsFragment extends ListFragment {
 
     @Override
     public void onAttach(Activity activity) {
-        getTopics();
-        super.onAttach(activity);
 
+        System.out.println("poopface");
+        super.onAttach(activity);
         // This makes sure that the container activity has implemented
         // the callback interface. If not, it throws an exception
         try {
@@ -53,32 +53,25 @@ public class TopicsFragment extends ListFragment {
         }
     }
 
-
-    protected void OnCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-
-    }
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
         // Inflate the fragment layout file
         ViewGroup view = (ViewGroup) inflater.inflate(R.layout.topic_view,container,false);
-        // Create data source
-
+        getTopics();
         // Create adapter
         adapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,
                 android.R.id.text1, items);
         // Bind adapter to the listFragent
         this.setListAdapter(adapter);
         // Retian listfragment instance across configuration changes
-       // setRetainInstance(true);
-
+        //setRetainInstance(true);
         System.out.println(items + "innan view");
         return view;
     }
     @Override
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
+
         getListView().getLayoutParams().width = getWidestView(getActivity(),getListAdapter());
     }
     // Handling item click
@@ -136,4 +129,9 @@ public class TopicsFragment extends ListFragment {
         Volley.newRequestQueue(getActivity()).add(jsonRequest);
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        items = new ArrayList<>();
+    }
 }
